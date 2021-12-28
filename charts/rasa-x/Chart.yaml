@@ -1,0 +1,53 @@
+---
+apiVersion: v2
+
+version: "2.11.0"
+
+appVersion: "0.42.6"
+
+name: rasa-x
+description: Rasa X Helm chart for Kubernetes / Openshift
+home: https://github.com/kbc-group/rasax-poc/helm-chart/
+
+icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqZPsa-h0ilYPCFaQmf21MFMyVH7oyvrfnJHwvGOJVlMIeTiakBJTSwGd2cDFcF5AsEiY&usqp=CAU"
+
+keywords:
+- "Rasa"
+- "AI Assistants"
+- "Chatbot"
+- "Rasa X"
+
+maintainers:
+- name: "tmbo"
+  email: "tom@rasa.com"
+  url: "https://rasa.com"
+
+dependencies:
+- name: postgresql
+  version: ~8.6.4
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.install
+
+- name: redis
+  version: ~10.5.12
+  repository: https://charts.bitnami.com/bitnami
+  condition: redis.install
+
+- name: rabbitmq
+  version: ~6.19.2
+  repository: https://charts.bitnami.com/bitnami
+  condition: rabbitmq.install
+
+annotations:
+  # See: https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations
+  artifacthub.io/changes: |
+    - kind: security
+      description: Bump the app version to 0.42.6
+      links:
+        - name: Release notes
+          url: https://rasa.com/docs/rasa-x/changelog/rasa-x-changelog#0426---2021-11-23
+    - kind: security
+      description: Bump Rasa version to 2.8.15
+      links:
+        - name: Release notes
+          url: https://rasa.com/docs/rasa/changelog/

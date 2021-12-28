@@ -1,0 +1,12 @@
+dependencies:
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: ~8.6.4
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: ~10.5.12
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: ~6.19.2
+digest: sha256:f6fbc43e6bb63496cc307f34b98cf0ac0f8e348d02255e710e203ff1f7bf0e4a
+generated: "2021-12-28T13:42:11.97525+01:00"
