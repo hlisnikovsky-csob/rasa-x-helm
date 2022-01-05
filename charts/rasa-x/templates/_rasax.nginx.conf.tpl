@@ -3,6 +3,39 @@ upstream docker-rasax-api {
   server ${RASA_X_HOST} max_fails=0;
 }
 
+
+upstream rabbit-api {
+  server rasa-x-rabbit.default.svc:15672 max_fails=0;
+}
+
+
+server {
+  listen            16000;
+  keepalive_timeout   30;
+  client_max_body_size 1M;
+
+  location / {
+
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_redirect off;
+        proxy_pass http://rabbit-api;
+  }
+}
+
+server {
+  listen            15672;
+  keepalive_timeout   30;
+  client_max_body_size 1M;
+  location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://rasa-x-rabbit.default.svc:15672;
+  }
+}
+
 server {
   listen            8080;
 #  include           /etc/nginx/conf.d/ssl.conf; # uncomment if using ssl; see ssl.conf.template for example configuration
